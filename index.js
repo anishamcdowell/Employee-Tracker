@@ -12,3 +12,6 @@ const mysql = require("mysql");
 // TODO: post employee data to sql database
 
 // TODO: connect to server and database
+
+// TODO: ??? SQL JOINS ???
+// TODO: SQL queries/constructor functions/classes

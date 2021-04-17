@@ -32,16 +32,31 @@ function start() {
                 viewDepartments();
                 break;
 
+            case "View roles":
+                viewEmployeeRole();
+                break;
+
             default:
                 break;
         }
     })
 }
 
-// Prompt functions
+// Inquirer prompt functions
 function viewDepartments() {
     connection.query(
         "SELECT * FROM department;",
+        (err, results) => {
+            if (err) throw err;
+            console.table(results);
+            start();
+        }
+    )
+};
+
+function viewEmployeeRole() {
+    connection.query(
+        "SELECT * FROM employeeRole;",
         (err, results) => {
             if (err) throw err;
             console.table(results);

@@ -4,23 +4,24 @@ CREATE DATABASE employee_db;
 USE employee_db;
 
 CREATE TABLE department (
-    id INT PRIMARY KEY
+    id INTEGER AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE employeeRole (
-    id INT PRIMARY KEY,
+    id INTEGER AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL,
-    department_id INT -- hold reference to what dept. this tole belongs to
+    department_id INTEGER, -- hold reference to what dept. this tole belongs to
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE employee (
-    id INT PRIMARY KEY,
+    id INTEGER AUTO_INCREMENT,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    role_id INT,
-    manager_id INT -- hold reference to another employee that manages the employee being created
+    role_id INTEGER,
+    manager_id INTEGER, -- hold reference to another employee that manages the employee being created
+    PRIMARY KEY (id)
 );
-
-

@@ -36,6 +36,10 @@ function start() {
                 viewEmployeeRole();
                 break;
 
+            case "View employees":
+                viewEmployees();
+                break;
+
             default:
                 break;
         }
@@ -57,6 +61,17 @@ function viewDepartments() {
 function viewEmployeeRole() {
     connection.query(
         "SELECT * FROM employeeRole;",
+        (err, results) => {
+            if (err) throw err;
+            console.table(results);
+            start();
+        }
+    )
+};
+
+function viewEmployees() {
+    connection.query(
+        "SELECT * FROM employee;",
         (err, results) => {
             if (err) throw err;
             console.table(results);

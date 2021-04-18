@@ -4,17 +4,11 @@ const mysql = require("mysql");
 
 // TODO: connect to sql database
 const connection = mysql.createConnection({
-    host: 'localhost',
-  
-    // Your port; if not 3306
     port: 3306,
-  
-    // Your username
-    user: 'root',
-  
-    // Your password
-    password: 'Hakurayn11!',
-    database: 'employee_db',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
   });
 
 // Function to start initial prompts

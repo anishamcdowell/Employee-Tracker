@@ -1,6 +1,7 @@
 //package dependencies
 const inquirer = require("inquirer");
 const mysql = require("mysql");
+require('dotenv').config();
 
 // TODO: connect to sql database
 const connection = mysql.createConnection({

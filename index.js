@@ -24,7 +24,7 @@ function start() {
             type: "list",
             name: "firstPrompt",
             message: "What would you like to do?",
-            choices: ["View departments", "View roles", "View employees", "Add department", "Add role", "Add employee", "Update departments", "Update roles", "Update employees", "Exit"]
+            choices: ["View departments", "View roles", "View employees", "Add department", "Add employee role", "Add employee", "Update departments", "Update roles", "Update employees", "Exit"]
         }
     ]).then ((response) => {
         switch (response.firstPrompt) {
@@ -42,6 +42,10 @@ function start() {
 
             case "Add department":
                 addDepartment();
+                break;
+
+            case "Add employee role":
+                addEmployeeRole();
                 break;
 
             default:
@@ -84,7 +88,7 @@ function viewEmployees() {
     )
 };
 
-// TODO: Prompts to ADD table data
+// Prompts to ADD table data
 function addDepartment() {
     inquirer.prompt([
         {
@@ -107,6 +111,86 @@ function addDepartment() {
         );
     })
 };
+
+function addEmployeeRole() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "title",
+            message: "What is the employee title?"
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What is the salary for this role?"
+        },
+        {
+            type: "input",
+            name: "department_id",
+            message: "What department is this role in?"
+            //choices: display array of depts
+        },
+    ])
+    .then((response) => {
+        connection.query(
+            "INSERT INTO employeeRole SET ?",
+            {
+                title: response.title,
+                salary: response.salary,
+                department_id: response.department_id
+            },
+            (err, results) => {
+                if (err) throw err;
+                console.log(`${response.title} added to employee roles.`);
+                start();
+            }
+        );
+    })
+};
+
+function addEmployee() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "first_name",
+            message: "What is the employee's first name?"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "What is the employee's last name?"
+        },
+        {
+            type: "input",
+            name: "role_id",
+            message: "What is the employee's role id?"
+            //choices: display array of role ids???
+        },
+        {
+            type: "input",
+            name: "manager_id",
+            message: "What is the employee's role id?"
+            //choices: display array of manager ids???
+        },
+    ])
+    .then((response) => {
+        connection.query(
+            "INSERT INTO employee SET ?",
+            {
+                first_name: response.first_name,
+                last_name: response.last_name,
+                role_id: response.role_id,
+                manager_id: response.manager_id
+            },
+            (err, results) => {
+                if (err) throw err;
+                console.log(`${response.departmentName} added to departments.`);
+                start();
+            }
+        );
+    })
+};
+
 
 // TODO: Prompts to UPDATE table data
 

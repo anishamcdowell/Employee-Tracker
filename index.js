@@ -24,7 +24,7 @@ function start() {
             type: "list",
             name: "firstPrompt",
             message: "What would you like to do?",
-            choices: ["View departments", "View roles", "View employees", "Add departments", "Add roles", "Add employees", "Update departments", "Update roles", "Update employees", "Exit"]
+            choices: ["View departments", "View roles", "View employees", "Add department", "Add role", "Add employee", "Update departments", "Update roles", "Update employees", "Exit"]
         }
     ]).then ((response) => {
         switch (response.firstPrompt) {
@@ -40,13 +40,17 @@ function start() {
                 viewEmployees();
                 break;
 
+            case "Add department":
+                addDepartment();
+                break;
+
             default:
                 break;
         }
     })
 }
 
-// Inquirer prompt functions
+// Prompts to VIEW tables
 function viewDepartments() {
     connection.query(
         "SELECT * FROM department;",
@@ -80,11 +84,31 @@ function viewEmployees() {
     )
 };
 
-// add departments, roles, employees
-// view departments, roles, employees
-// update employee roles
+// TODO: Prompts to ADD table data
+function addDepartment() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "departmentName",
+            message: "What is the department name?"
+        },
+    ])
+    .then((response) => {
+        connection.query(
+            "INSERT INTO department SET ?",
+            {
+                name: response.departmentName,
+            },
+            (err, results) => {
+                if (err) throw err;
+                console.log(`${response.departmentName} added to departments.`);
+                start();
+            }
+        );
+    })
+};
 
-// TODO: post employee data to sql database
+// TODO: Prompts to UPDATE table data
 
 // TODO: connect to server and database
 connection.connect((err) => {
@@ -92,6 +116,14 @@ connection.connect((err) => {
     // run the start function after the connection is made to prompt the user
     start();
   });
+
+
+
+
+
+
+
+// ---------------------------------------------------------------------
 
 // TODO: ??? SQL JOINS ???
 // TODO: SQL queries/constructor functions/classes

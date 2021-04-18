@@ -17,7 +17,7 @@ const connection = mysql.createConnection({
     database: 'employee_db',
   });
 
-// TODO: inquirer prompts
+// Function to start initial prompts
 function start() {
     inquirer.prompt([
         {
@@ -46,6 +46,10 @@ function start() {
 
             case "Add employee role":
                 addEmployeeRole();
+                break;
+
+            case "Add employee":
+                addEmployee();
                 break;
 
             default:
@@ -169,7 +173,7 @@ function addEmployee() {
         {
             type: "input",
             name: "manager_id",
-            message: "What is the employee's role id?"
+            message: "What is the employee's manager id?"
             //choices: display array of manager ids???
         },
     ])
@@ -191,13 +195,11 @@ function addEmployee() {
     })
 };
 
-
 // TODO: Prompts to UPDATE table data
 
 // TODO: connect to server and database
 connection.connect((err) => {
     if (err) throw err;
-    // run the start function after the connection is made to prompt the user
     start();
   });
 

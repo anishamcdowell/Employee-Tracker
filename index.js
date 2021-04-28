@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const mysql = require("mysql");
 require('dotenv').config();
 
-// TODO: connect to sql database
+// connect to sql database
 const connection = mysql.createConnection({
     port: 3306,
     host: process.env.DB_HOST,
@@ -19,12 +19,13 @@ function start() {
             type: "list",
             name: "firstPrompt",
             message: "What would you like to do?",
-            choices: ["View departments", "View roles", "View employees", "Add department", "Add employee role", "Add employee", "Update departments", "Update roles", "Update employees", "Exit"]
+            choices: ["View departments", "View roles", "View employees", "Add department", "Add employee role", "Add employee", "Exit"]
         }
     ]).then ((response) => {
         switch (response.firstPrompt) {
             case "View departments":
                 viewDepartments();
+                console.log(departmentIdArray);
                 break;
 
             case "View roles":
@@ -47,7 +48,13 @@ function start() {
                 addEmployee();
                 break;
 
+            case "Update roles":
+                updateRole();
+                break;
+
+
             default:
+                connection.end();
                 break;
         }
     })
@@ -190,21 +197,9 @@ function addEmployee() {
     })
 };
 
-// TODO: Prompts to UPDATE table data
-
-// TODO: connect to server and database
+// connect to server and database
 connection.connect((err) => {
     if (err) throw err;
     start();
   });
 
-
-
-
-
-
-
-// ---------------------------------------------------------------------
-
-// TODO: ??? SQL JOINS ???
-// TODO: SQL queries/constructor functions/classes

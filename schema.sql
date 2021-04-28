@@ -13,7 +13,7 @@ CREATE TABLE employeeRole (
     id INTEGER AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL,
-    department_id INTEGER, -- hold reference to what dept. this tole belongs to
+    department_id INTEGER, -- hold reference to what dept. this role belongs to
     PRIMARY KEY (id)
 );
 
